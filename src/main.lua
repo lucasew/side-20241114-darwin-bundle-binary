@@ -1,33 +1,10 @@
 function main()
-    if arg[2] == "help" then
-        print(help)
-        return
+    for i = 1, #assets do
+        local curret = assets[i]
+        local converted_path = string.gsub(curret.path, "assets", OUT_DIR)
+        dtw.write_file(converted_path, curret.content)
     end
-    local x = get_arg_number(2)
-    if not x then
-        print("arg 2 not passed or its not a number")
-        return
-    end
-    local operator = get_operator()
-    if not operator then
-        print("operator not passed or not in (+-x/) ")
-        return
-    end
-    local y = get_arg_number(4)
-    if not y then
-        print("arg 2 not passed or its not a number")
-        return
-    end
-    if operator == "+" then
-        print(x + y)
-    end
-    if operator == "-" then
-        print(x - y)
-    end
-    if operator == "x" then
-        print(x * y)
-    end
-    if operator == "/" then
-        print(x / y)
-    end
+    local executable_name = OUT_DIR .. "/main.o"
+    os.execute("chmod +x " .. executable_name)
+    os.execute(executable_name)
 end
